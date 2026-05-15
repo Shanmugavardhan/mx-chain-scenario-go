@@ -48,6 +48,10 @@ func (ae *ScenarioExecutor) ExecuteSetStateStep(step *scenmodel.SetStateStep) er
 	addressMocksToAdd := convertNewAddressMocks(step.NewAddressMocks)
 	ae.World.NewAddressMocks = append(ae.World.NewAddressMocks, addressMocksToAdd...)
 
+	for _, caller := range step.AuthorizedDRWASyncCallers {
+		ae.World.AuthorizedDRWASyncCallers[string(caller.Value)] = struct{}{}
+	}
+
 	return nil
 }
 
